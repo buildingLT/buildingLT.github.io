@@ -15,6 +15,6 @@ npm run build    # outputs to dist/
 - `src/pages/` — one file per page: `index`, `career`, `180dc`, `travel`
 - `src/layouts/Layout.astro` — shared header, footer, fonts, contact links
 - `src/styles/global.css` — colors, typography, spacing
-- `public/` — static files served as-is (`CNAME`, favicon, future `resume.pdf`)
+- `public/` — static files served as-is (`CNAME`, favicon)
 
 Pushing to `main` deploys automatically (`.github/workflows/deploy.yml`).
