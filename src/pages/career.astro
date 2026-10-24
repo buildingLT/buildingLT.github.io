@@ -59,26 +59,39 @@ const projects = [
 ---
 
 <Layout tone="career" title="Career" description="Lakshya Tiwari's career in product — FOLO and Niyo.">
-  <h1>Career</h1>
-  <p class="lede">
-    I work on onboarding and growth: the first few minutes that decide whether someone sticks
-    around. Right now that’s at FOLO, before that forex cards at Niyo.
+  <span class="eyebrow rise">Career</span>
+  <h1 class="rise rise-2">Onboarding, growth, and the first five minutes.</h1>
+  <p class="page-intro rise rise-3">
+    I work on the moments that decide whether someone sticks around. Right now that’s at FOLO;
+    before that, forex cards at Niyo.
   </p>
+
+  <div class="stats rise rise-4">
+    <div><strong>1.3L+</strong><span>users scaled at FOLO</span></div>
+    <div><strong>15%</strong><span>lift in account linking</span></div>
+    <div><strong>0 → 5K+</strong><span>leads for Niyo Express</span></div>
+  </div>
 
   {
     experience.map((job) => (
       <section class="job">
-        <h2>{job.company}</h2>
-        <p class="meta">
-          {job.role}
-          <br />
-          {job.detail} · {job.dates} · {job.location}
-        </p>
-        <ul>
-          {job.points.map((point) => (
-            <li set:html={point} />
-          ))}
-        </ul>
+        <div class="when">
+          <span>{job.dates}</span>
+          <span>{job.location}</span>
+        </div>
+        <div>
+          <h2>{job.company}</h2>
+          <p class="meta">
+            {job.role}
+            <br />
+            {job.detail}
+          </p>
+          <ul>
+            {job.points.map((point) => (
+              <li set:html={point} />
+            ))}
+          </ul>
+        </div>
       </section>
     ))
   }
@@ -113,14 +126,43 @@ const projects = [
 </Layout>
 
 <style>
-  .lede {
-    font-size: 1.2rem;
-    color: var(--muted);
-    margin-bottom: 1rem;
+  .job {
+    display: grid;
+    gap: 0.25rem 2rem;
+    margin-top: 3.5rem;
+  }
+
+  .when {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  @media (min-width: 52rem) {
+    .job {
+      grid-template-columns: 10.5rem 1fr;
+      margin-left: -12.5rem;
+    }
+
+    .when {
+      flex-direction: column;
+      gap: 0.2rem;
+      padding-top: 0.55rem;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .when span + span {
+      color: var(--muted);
+    }
   }
 
   .job h2 {
-    margin-bottom: 0.25rem;
+    margin: 0 0 0.35rem;
   }
 
   .meta {
