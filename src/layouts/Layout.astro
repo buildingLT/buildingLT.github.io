@@ -1,0 +1,115 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'Lakshya Tiwari — product, consulting, and travel.',
+} = Astro.props;
+
+const pageTitle = title ? `${title} · Lakshya Tiwari` : 'Lakshya Tiwari';
+
+// TODO: replace LinkedIn with real profile URL
+const LINKEDIN_URL = 'https://www.linkedin.com/in/your-handle';
+const EMAIL = 'lakshya.tiwari1201@gmail.com';
+
+const nav = [
+  { href: '/career', label: 'Career' },
+  { href: '/180dc', label: '180DC' },
+  { href: '/travel', label: 'Travel' },
+];
+const path = Astro.url.pathname.replace(/\/$/, '');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500&display=swap"
+    />
+  </head>
+  <body>
+    <header class="container site-header">
+      <a href="/" class="name">Lakshya Tiwari</a>
+      <nav>
+        {
+          nav.map((item) => (
+            <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+    </header>
+
+    <main class="container">
+      <slot />
+    </main>
+
+    <footer class="container site-footer">
+      <hr />
+      <p class="muted">
+        <a href={LINKEDIN_URL}>LinkedIn</a>
+        <span aria-hidden="true">·</span>
+        <a href={`mailto:${EMAIL}`}>Email</a>
+      </p>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.75rem 1.5rem;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+  }
+
+  .name {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    text-decoration: none;
+  }
+
+  nav {
+    display: flex;
+    gap: 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--muted);
+  }
+
+  nav a:hover,
+  nav a[aria-current='page'] {
+    color: var(--accent);
+  }
+
+  .site-footer {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    font-size: 0.95rem;
+  }
+
+  .site-footer span {
+    margin: 0 0.5rem;
+  }
+</style>
