@@ -4,11 +4,14 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  /** Sets the page's accent colour and the gradient wash behind the header. */
+  tone?: 'home' | 'career' | '180dc' | 'travel';
 }
 
 const {
   title,
   description = 'Lakshya Tiwari — product, consulting, and travel.',
+  tone = 'home',
 } = Astro.props;
 
 const pageTitle = title ? `${title} · Lakshya Tiwari` : 'Lakshya Tiwari';
@@ -40,7 +43,8 @@ const path = Astro.url.pathname.replace(/\/$/, '');
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500&display=swap"
     />
   </head>
-  <body>
+  <body data-tone={tone}>
+    <div class="wash" aria-hidden="true"></div>
     <header class="container site-header">
       <a href="/" class="name">Lakshya Tiwari</a>
       <nav>

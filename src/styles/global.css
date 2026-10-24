@@ -1,9 +1,14 @@
 :root {
-  --bg: #ffffff;
+  --bg: #fcfbf8;
   --text: #141414;
   --muted: #6b6b6b;
-  --accent: #3d6fe0;
-  --hairline: #e6e6e6;
+  --hairline: #e8e6e1;
+
+  /* Builder (product), impact (180DC), explorer (travel) */
+  --blue: #3d6fe0;
+  --green: #2f9e6e;
+  --coral: #e8704a;
+  --accent: var(--blue);
 
   --font-heading: 'Fraunces', Georgia, serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
@@ -21,7 +26,17 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+body[data-tone='180dc'] {
+  --accent: var(--green);
+}
+
+body[data-tone='travel'] {
+  --accent: var(--coral);
+}
+
 body {
+  position: relative;
+  isolation: isolate;
   margin: 0;
   background: var(--bg);
   color: var(--text);
@@ -61,7 +76,7 @@ p {
 a {
   color: inherit;
   text-decoration: underline;
-  text-decoration-color: var(--hairline);
+  text-decoration-color: color-mix(in srgb, var(--accent) 35%, transparent);
   text-underline-offset: 0.2em;
   transition: color 0.15s, text-decoration-color 0.15s;
 }
@@ -85,4 +100,29 @@ hr {
 
 .muted {
   color: var(--muted);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+/* Soft colour wash behind the top of every page, fading into the background. */
+.wash {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 34rem;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(40rem 22rem at 18% 0%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 70%),
+    radial-gradient(32rem 20rem at 85% 0%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent);
+  mask-image: linear-gradient(to bottom, #000 40%, transparent);
+}
+
+body[data-tone='home'] .wash {
+  background:
+    radial-gradient(38rem 22rem at 12% 0%, color-mix(in srgb, var(--blue) 26%, transparent), transparent 70%),
+    radial-gradient(34rem 22rem at 88% 4%, color-mix(in srgb, var(--coral) 24%, transparent), transparent 70%),
+    radial-gradient(30rem 18rem at 52% 34%, color-mix(in srgb, var(--green) 14%, transparent), transparent 70%);
 }
