@@ -1,0 +1,87 @@
+---
+interface Props {
+  label: string;
+  date: string;
+  /** CSS colour for the stamp ink */
+  ink: string;
+  shape?: 'rect' | 'oval' | 'double';
+  tilt?: number;
+  href?: string;
+  /** Plays the landing animation on page load (homepage only) */
+  land?: boolean;
+  delay?: number;
+}
+
+const { label, date, ink, shape = 'rect', tilt = 0, href, land = false, delay = 0 } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag
+  href={href}
+  class:list={['stamp', shape, { land }]}
+  style={`--ink: ${ink}; --tilt: ${tilt}deg; --delay: ${delay}ms`}
+>
+  <span class="label">{label}</span>
+  <span class="date">{date}</span>
+</Tag>
+
+<style>
+  .stamp {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.7rem 1.4rem 0.6rem;
+    border: 2.5px solid var(--ink);
+    border-radius: 0.6rem;
+    color: var(--ink);
+    text-decoration: none;
+    transform: rotate(var(--tilt));
+    mix-blend-mode: multiply;
+    transition: transform 0.2s;
+  }
+
+  .oval {
+    border-radius: 50%;
+    padding: 1rem 1.9rem 0.9rem;
+  }
+
+  .double {
+    border-radius: 0.2rem;
+    box-shadow:
+      0 0 0 3px var(--paper),
+      0 0 0 5px var(--ink);
+  }
+
+  a.stamp:hover {
+    color: var(--ink);
+    transform: rotate(0deg) scale(1.03);
+  }
+
+  .label {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 750;
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+  }
+
+  .date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .land {
+      animation: land 0.45s cubic-bezier(0.3, 1.5, 0.5, 1) var(--delay) both;
+    }
+  }
+
+  @keyframes land {
+    from {
+      opacity: 0;
+      transform: rotate(calc(var(--tilt) - 8deg)) scale(1.5);
+    }
+  }
+</style>

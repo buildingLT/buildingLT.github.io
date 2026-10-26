@@ -1,170 +1,221 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Stamp from '../components/Stamp.astro';
+
+// Two lines styled after a passport's machine-readable zone, padded with "<" to 44 characters.
+const mrz = (text: string) => text.padEnd(44, '<');
+const mrzLines = [mrz('P<INDTIWARI<<LAKSHYA'), mrz('PRODUCT<<ONBOARDING<<GROWTH<<BENGALURU')];
+
+const details = [
+  { term: 'Now', value: 'Associate Product Manager at FOLO' },
+  { term: 'Before', value: 'Forex cards at Niyo' },
+  { term: 'Based in', value: 'Bengaluru' },
+];
 
 const sections = [
   {
     href: '/career',
-    title: 'Career',
-    blurb: 'Building products at FOLO and Niyo — onboarding, engagement, and launches.',
-    color: 'var(--ink)',
+    label: 'Career',
+    date: 'Since Dec 2024',
+    ink: 'var(--navy)',
+    shape: 'rect',
+    tilt: -4,
+    blurb: 'Onboarding and growth at FOLO and Niyo.',
   },
   {
     href: '/180dc',
-    title: '180DC',
-    blurb: 'Global Leadership Team, Branch Pairing, and the projects around it.',
-    color: 'var(--dc-green)',
+    label: '180DC',
+    date: 'Since Sep 2024',
+    ink: 'var(--dc-green-deep)',
+    shape: 'oval',
+    tilt: 3,
+    blurb: 'Founding a branch, then the Global Leadership Team.',
   },
   {
     href: '/travel',
-    title: 'Travel',
-    blurb: 'Trips, notes, and photos from the road.',
-    color: 'var(--coral)',
+    label: 'Travel',
+    date: 'Always open',
+    ink: 'var(--vermilion)',
+    shape: 'double',
+    tilt: -2,
+    blurb: 'Trips, notes and photos from the road.',
   },
-];
+] as const;
 ---
 
 <Layout tone="home">
-  <section class="hero">
-    <div class="portrait rise">
-      <img
-        src="/images/portrait.jpg"
-        alt="Portrait of Lakshya Tiwari"
-        width="640"
-        height="640"
-        fetchpriority="high"
-      />
+  <section class="datapage" aria-label="About Lakshya">
+    <img
+      class="photo"
+      src="/images/portrait.jpg"
+      alt="Portrait of Lakshya Tiwari"
+      width="560"
+      height="720"
+      fetchpriority="high"
+    />
+    <div class="fields">
+      <h1>Lakshya Tiwari</h1>
+      <p class="intro">
+        Product manager on a founding team, building things people come back to.
+      </p>
+      <dl>
+        {
+          details.map((d) => (
+            <div>
+              <dt>{d.term}</dt>
+              <dd>{d.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
     </div>
-    <h1 class="rise rise-2">Lakshya Tiwari</h1>
-    <p class="intro rise rise-3">
-      Product manager on a founding team, building things people come back to.
-    </p>
-    <p class="hero-links rise rise-4">
-      <a href="/career">Read my story</a>
-      <span aria-hidden="true">·</span>
-      <a href="https://www.linkedin.com/in/lakshya-tiwari/" target="_blank" rel="noopener">LinkedIn</a>
-    </p>
+    <div class="mrz" aria-hidden="true">
+      {mrzLines.map((line) => <span>{line}</span>)}
+    </div>
   </section>
 
-  <ol class="sections rise rise-4">
+  <ul class="visas">
     {
-      sections.map((section, i) => (
-        <li style={`--section: ${section.color}`}>
-          <a href={section.href}>
-            <span class="index">{String(i + 1).padStart(2, '0')}</span>
-            <span class="body">
-              <h2>{section.title}</h2>
-              <p>{section.blurb}</p>
-            </span>
-            <span class="arrow" aria-hidden="true">→</span>
-          </a>
+      sections.map((s, i) => (
+        <li>
+          <Stamp
+            href={s.href}
+            label={s.label}
+            date={s.date}
+            ink={s.ink}
+            shape={s.shape}
+            tilt={s.tilt}
+            land
+            delay={250 + i * 140}
+          />
+          <p>{s.blurb}</p>
         </li>
       ))
     }
-  </ol>
+  </ul>
 </Layout>
 
 <style>
-  .hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 1.5rem 0 5rem;
+  .datapage {
+    display: grid;
+    grid-template-columns: 12.5rem 1fr;
+    grid-template-areas:
+      'photo fields'
+      'mrz mrz';
+    gap: 2.5rem 2.75rem;
+    align-items: start;
   }
 
-  .portrait {
-    width: 11rem;
-    height: 11rem;
-    margin-bottom: 2.25rem;
-    border-radius: 50%;
-    overflow: hidden;
-    background: var(--surface);
-    box-shadow: 0 0 0 6px var(--bg), 0 0 0 7px var(--hairline);
-  }
-
-  .portrait img {
+  .photo {
+    grid-area: photo;
     width: 100%;
-    height: 100%;
+    height: auto;
+    aspect-ratio: 35 / 45;
     object-fit: cover;
-    display: block;
+    border-radius: 3px;
+    filter: saturate(0.92);
   }
 
-  .hero h1 {
-    margin-bottom: 1rem;
+  .fields {
+    grid-area: fields;
+  }
+
+  .fields h1 {
+    margin-bottom: 0.9rem;
   }
 
   .intro {
     max-width: 30rem;
-    margin: 0 auto 1.75rem;
-    font-size: clamp(1.15rem, 2.4vw, 1.35rem);
-    line-height: 1.55;
-    color: var(--muted);
+    font-size: clamp(1.2rem, 2.4vw, 1.45rem);
+    line-height: 1.5;
   }
 
-  .hero-links {
-    display: flex;
-    gap: 0.75rem;
-    margin: 0;
-    font-size: 0.95rem;
-  }
-
-  .hero-links span {
-    color: var(--hairline);
-  }
-
-  .sections {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border-top: 1px solid var(--hairline);
-  }
-
-  .sections li {
-    border-bottom: 1px solid var(--hairline);
-  }
-
-  .sections a {
+  dl {
     display: grid;
-    grid-template-columns: 2.75rem 1fr auto;
-    align-items: baseline;
-    gap: 0.5rem;
-    padding: 1.9rem 0;
-    text-decoration: none;
+    gap: 0.35rem;
+    margin: 1.75rem 0 0;
   }
 
-  .index {
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    color: var(--section);
-    font-variant-numeric: tabular-nums;
+  dl div {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    gap: 1rem;
   }
 
-  .sections h2 {
-    margin: 0 0 0.3rem;
-    transition: color 0.2s;
+  dt {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: var(--muted);
+    padding-top: 0.15rem;
   }
 
-  .sections p {
+  dd {
     margin: 0;
+  }
+
+  /* The one bold element: a machine-readable strip across the data page */
+  .mrz {
+    grid-area: mrz;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    overflow: hidden;
+    container-type: inline-size;
+    font-family: var(--font-mono);
+    letter-spacing: 0.08em;
+    line-height: 1.35;
+    white-space: nowrap;
+    color: color-mix(in srgb, var(--navy) 78%, var(--paper));
+  }
+
+  /* Size the 44 characters (0.6em advance + 0.08em tracking, with slack) to fill the row */
+  .mrz span {
+    font-size: calc(100cqi / (44 * 0.7));
+  }
+
+  .visas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    list-style: none;
+    margin: 5rem 0 0;
+    padding: 0;
+  }
+
+  .visas li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .visas p {
+    margin: 0;
+    max-width: 16rem;
     color: var(--muted);
   }
 
-  .arrow {
-    align-self: center;
-    font-size: 1.25rem;
-    color: var(--muted);
-    transition:
-      transform 0.25s,
-      color 0.2s;
-  }
+  @media (max-width: 44rem) {
+    .datapage {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'photo'
+        'fields'
+        'mrz';
+      gap: 1.75rem;
+    }
 
-  .sections a:hover h2,
-  .sections a:hover .arrow {
-    color: var(--section);
-  }
+    .photo {
+      width: 9rem;
+    }
 
-  .sections a:hover .arrow {
-    transform: translateX(6px);
+    .visas {
+      grid-template-columns: 1fr;
+      gap: 2.75rem;
+      margin-top: 3.5rem;
+    }
+
   }
 </style>

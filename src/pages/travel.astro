@@ -1,11 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Stamp from '../components/Stamp.astro';
 ---
 
 <Layout tone="travel" title="Travel" description="Trip writeups and photos.">
-  <span class="eyebrow rise">Travel</span>
-  <h1 class="rise rise-2">Notes from the road.</h1>
-  <p class="page-intro rise rise-3">
-    Trip writeups and photos. Nothing here yet — the first one is on its way.
-  </p>
+  <article class="prose">
+    <Stamp label="Travel" date="Always open" ink="var(--vermilion)" shape="double" tilt={-2} />
+    <h1>Notes from the road.</h1>
+    <p class="lede">Trip writeups and photos. The first one is on its way.</p>
+  </article>
 </Layout>
+
+<style>
+  article > :global(.stamp) {
+    margin-bottom: 2.25rem;
+  }
+</style>

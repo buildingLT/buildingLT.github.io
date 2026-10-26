@@ -1,118 +1,44 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Stamp from '../components/Stamp.astro';
 ---
 
 <Layout tone="180dc" title="180DC" description="Lakshya Tiwari's 180 Degrees Consulting journey.">
-  <section class="brand-hero">
-    <div class="brand-inner">
-      <span class="eyebrow rise">180 Degrees Consulting</span>
-      <h1 class="rise rise-2">Consulting for social impact.</h1>
-      <p class="rise rise-3">
-        My journey with <a href="https://www.180dc.org" target="_blank" rel="noopener"
-          >180 Degrees Consulting</a
-        >, the world’s largest consultancy for nonprofits and social enterprises — from founding a
-        branch to the Global Leadership Team.
-      </p>
-      <div class="brand-stats rise rise-4">
-        <div><strong>APAC</strong><span>Best New Branch</span></div>
-        <div><strong>8</strong><span>clients onboarded</span></div>
-        <div><strong>2024</strong><span>founded at NIT Warangal</span></div>
-      </div>
-    </div>
-  </section>
+  <article class="prose">
+    <Stamp label="180DC" date="Since Sep 2024" ink="var(--dc-green-deep)" shape="oval" tilt={3} />
+    <h1>Consulting for social impact.</h1>
+    <p class="lede">
+      My journey with <a href="https://www.180dc.org" target="_blank" rel="noopener"
+        >180 Degrees Consulting</a
+      >, the world’s largest consultancy for nonprofits and social enterprises, from founding a
+      branch to the Global Leadership Team.
+    </p>
 
-  <h2>Founding 180DC NIT Warangal</h2>
-  <p class="muted">Founder and Director of Clients & Outreach · Sep 2024</p>
-  <p>
-    Set up the 180DC branch at NIT Warangal, which was named Best New Branch in APAC. Onboarded
-    eight clients, including Labourhome, Ecosaviours, Storelink and Feeding India by Zomato,
-    working on impact measurement, market sizing, growth, GTM and pricing.
-  </p>
+    <h2>Founding 180DC NIT Warangal</h2>
+    <p class="role">Founder and Director of Clients & Outreach, Sep 2024</p>
+    <p>
+      I set up the 180DC branch at NIT Warangal, which was named Best New Branch in APAC. We
+      onboarded eight clients, including Labourhome, Ecosaviours, Storelink and Feeding India by
+      Zomato, working on impact measurement, market sizing, growth, GTM and pricing.
+    </p>
 
-  <h2>Global Leadership Team</h2>
-  <p class="muted">Coming soon.</p>
+    <h2>Global Leadership Team</h2>
+    <p class="muted">Coming soon.</p>
 
-  <h2>Branch Pairing</h2>
-  <p class="muted">Coming soon.</p>
+    <h2>Branch Pairing</h2>
+    <p class="muted">Coming soon.</p>
 
-  <h2>Passion projects</h2>
-  <p class="muted">Coming soon.</p>
+    <h2>Passion projects</h2>
+    <p class="muted">Coming soon.</p>
+  </article>
 </Layout>
 
 <style>
-  /* Full-bleed band in 180DC's charcoal and green */
-  .brand-hero {
-    margin: -4.5rem calc(50% - 50vw) 1rem;
-    padding: 5rem 1.25rem 3.5rem;
-    background:
-      radial-gradient(36rem 18rem at 100% 0%, color-mix(in srgb, var(--dc-green) 28%, transparent), transparent 70%),
-      var(--dc-charcoal);
-    color: #f4f5f2;
+  article > :global(.stamp) {
+    margin-bottom: 2.25rem;
   }
 
-  .brand-inner {
-    max-width: calc(var(--measure) - 2.5rem);
-    margin: 0 auto;
-  }
-
-  .brand-hero .eyebrow {
-    color: var(--dc-green);
-  }
-
-  .brand-hero h1 {
-    margin-bottom: 1.25rem;
-  }
-
-  .brand-hero p {
-    max-width: 34rem;
-    font-size: 1.15rem;
-    color: #c9cdc6;
-  }
-
-  .brand-hero a {
-    color: #fff;
-    text-decoration-color: var(--dc-green);
-  }
-
-  .brand-hero a:hover {
-    color: var(--dc-green);
-  }
-
-  .brand-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
-    gap: 1.5rem;
-    margin-top: 2.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgb(255 255 255 / 0.14);
-  }
-
-  .brand-stats div {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-
-  .brand-stats strong {
-    font-family: var(--font-heading);
-    font-size: 2rem;
-    font-weight: 400;
-    line-height: 1;
-    color: var(--dc-green);
-  }
-
-  .brand-stats span {
-    font-size: 0.875rem;
-    color: #aab0a8;
-  }
-
-  h2::before {
-    content: '';
-    display: block;
-    width: 1.75rem;
-    height: 3px;
-    margin-bottom: 1rem;
-    border-radius: 2px;
-    background: var(--dc-green);
+  h2 {
+    color: #2b2f33;
   }
 </style>
