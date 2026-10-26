@@ -1,19 +1,45 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Stamp from '../components/Stamp.astro';
 ---
 
-<Layout tone="career" title="Career" description="Lakshya Tiwari's career in product — FOLO and Niyo.">
-  <span class="eyebrow rise">Career</span>
-  <h1 class="rise rise-2">Onboarding, growth, and the first five minutes.</h1>
-  <p class="page-intro rise rise-3">
-    I work on the moments that decide whether someone sticks around. Right now that’s at FOLO;
-    before that, forex cards at Niyo.
-  </p>
-  <p class="muted rise rise-4">
-    The full story is coming soon. In the meantime, say hello on <a
-      href="https://www.linkedin.com/in/lakshya-tiwari/"
-      target="_blank"
-      rel="noopener">LinkedIn</a
-    >.
-  </p>
+<Layout tone="career" title="Career" description="Lakshya Tiwari's work in product at FOLO and Niyo.">
+  <article class="prose">
+    <Stamp label="Career" date="Since Dec 2024" ink="var(--navy)" tilt={-4} />
+    <h1>Onboarding, growth, and the first five minutes.</h1>
+    <p class="lede">
+      I work on the moments that decide whether someone sticks around. Right now that’s at FOLO;
+      before that, forex cards at Niyo.
+    </p>
+
+    <h2>FOLO</h2>
+    <p class="role">Associate Product Manager, founding team</p>
+    <p>
+      At FOLO I lead product for onboarding. We scaled from a closed beta of 5K users to 1.3L+
+      users, and I’ve owned the journey every one of them goes through on day one.
+    </p>
+    <p>
+      I set up our analytics infrastructure from scratch: BigQuery and Metabase dashboards for the
+      product, plus API monitoring dashboards so we see problems before users do.
+    </p>
+    <p>
+      The result: onboarding conversion up <strong>15%</strong>, and our stickiness ratio
+      up <strong>4%</strong>.
+    </p>
+
+    <h2>Niyo</h2>
+    <p class="role">Product, forex cards</p>
+    <p>Onboarding for Niyo’s forex cards, and the launch of Niyo Express.</p>
+    <p class="muted">Full story coming soon.</p>
+  </article>
 </Layout>
+
+<style>
+  article > :global(.stamp) {
+    margin-bottom: 2.25rem;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+</style>
